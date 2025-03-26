@@ -1,7 +1,8 @@
+#include <iostream>  // 用于 std::cout
 #include <algorithm> // 用于 std::max 和 std::abs
-#include <cstdio>    // 用于 printf
 #include <cstdlib>   // 用于 NULL
 
+using namespace std;
 /*
 判断一棵树是否为平衡二叉树，如果是返回 true，不是返回 false。
 */
@@ -51,6 +52,16 @@ private:
     }
 };
 
+// 递归释放树的内存
+void freeTree(TreeNode* node) {
+    if (node == nullptr) {
+        return;
+    }
+    freeTree(node->left);
+    freeTree(node->right);
+    delete node;
+}
+
 // 测试代码
 int main() {
     // 创建一棵二叉树
@@ -64,8 +75,11 @@ int main() {
     Solution solution;
     bool isBalanced = solution.isBalanced(root);
     if(isBalanced) {
-        printf("The tree is balanced.\n");
+        cout<<"The tree is balanced."<<endl;
     } else {
-        printf("The tree is not balanced.\n");
+        cout<<"The tree is not balanced."<<endl;
     }
+    
+    // 释放树的内存
+    freeTree(root);
 }
